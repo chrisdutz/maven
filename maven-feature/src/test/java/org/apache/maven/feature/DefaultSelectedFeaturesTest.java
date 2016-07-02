@@ -26,15 +26,28 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 
+import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * This implements some unit tests for checking the behaviour of the implementaiton.
+ * 
+ * @author Karl Heinz Marbaise <a href="mailto:khmarbaise@apache.org">khmarbaise@apache.org</a>
+ * @since 3.4.0
+ */
 public class DefaultSelectedFeaturesTest
 {
+    private FeatureToggles sf;
+
+    @Before
+    public void before()
+    {
+        sf = new DefaultFeatureToggles();
+    }
 
     @Test
     public void getActiveFeaturesShouldNotReturnNotNullAndSizeOfListZero()
     {
-        DefaultFeatureToggles sf = new DefaultFeatureToggles();
         assertNotNull( sf.getActiveFeatureToggles() );
         assertEquals( sf.getActiveFeatureToggles().size(), 0 );
     }
@@ -42,18 +55,15 @@ public class DefaultSelectedFeaturesTest
     @Test
     public void isToggleActiveShouldReturnFalseIfNoTogglesHadBeenActivatedAtAll()
     {
-        DefaultFeatureToggles sf = new DefaultFeatureToggles();
         assertFalse( sf.isToggleActive( AvailableFeatureToggles.UNKNOWN ) );
     }
 
-//    @Test
-//    public void isToggleActiveShouldReturnFalseIfNotTheCorrectFeatureIsActivated()
-//    {
-//        DefaultFeatureToggles sf = new DefaultFeatureToggles();
-//
-//        sf.setActivatedFeatureToggles( Arrays.asList( AvailableFeatureToggles.UNKNOWN ) );
-//        assertFalse( sf.isToggleActive( AvailableFeatureToggles.MNG10000 ) );
-//        assertTrue( sf.isToggleActive( AvailableFeatureToggles.UNKNOWN ) );
-//
-//    }
+    @Test
+    public void isToggleActiveShouldReturnFalseIfNotTheCorrectFeatureIsActivated()
+    {
+        sf.setActivatedFeatureToggles( Arrays.asList( AvailableFeatureToggles.UNKNOWN ) );
+        assertFalse( sf.isToggleActive( AvailableFeatureToggles.MNG10000 ) );
+        assertTrue( sf.isToggleActive( AvailableFeatureToggles.UNKNOWN ) );
+
+    }
 }

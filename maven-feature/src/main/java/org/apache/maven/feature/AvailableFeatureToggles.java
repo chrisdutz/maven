@@ -32,20 +32,32 @@ public enum AvailableFeatureToggles
 
     //FIXME: Only some examples given. Nothing which exists in reality.
 
-//    MNG9991( "MNG-9991", "First Feature to be toggable via command line option. "
-//        + "First Feature to be toggable via command line option." ),
-//    MNG9992( "MNG-9992", "First Feature to be toggable via command line option. "
-//        + "First Feature to be toggable via command line option. XX asdfa. asdf dsf." ),
-//    MNG9993( "MNG-9993", "First Feature to be toggable via command line option. "
-//        + "More text than you think." ),
-//    MNG10000( "MNG-10000", "First Feature to be toggable via command line option. "
-//        + "Here much more than you thing." ),
+    /**
+     * MNG9991 this feature toggle is intended to do the following.. 
+     */
+    MNG9991( "MNG-9991", "First Feature to be toggable via command line option. "
+        + "First Feature to be toggable via command line option." ),
+    /**
+     * MNG9992 this feature toggle is intended to do the following.. 
+     */
+    MNG9992( "MNG-9992", "First Feature to be toggable via command line option. "
+        + "First Feature to be toggable via command line option. XX asdfa. asdf dsf." ),
+    /**
+     * MNG9993 this feature toggle is intended to do the following.. 
+     */
+    MNG9993( "MNG-9993", "First Feature to be toggable via command line option. "
+        + "More text than you think." ),
+    /**
+     * MNG10000 this feature toggle is intended to do the following.. 
+     */
+    MNG10000( "MNG-10000", "First Feature to be toggable via command line option. "
+        + "Here much more than you thing." ),
 
     /**
      * This is an feature toggle which will never being used nor does it exist.
      * This is only to mark the end of feature toggles. Also used for unit tests.
      * 
-     * Keep it at the end.
+     * Keep it at the last position in this enumeration.
      */
     UNKNOWN ("UNKNOWN", "The unknown feature.");
 

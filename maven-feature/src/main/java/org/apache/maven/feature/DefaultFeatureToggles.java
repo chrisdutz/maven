@@ -44,7 +44,7 @@ public class DefaultFeatureToggles
 
     private List<AvailableFeatureToggles> activatedFeatureToggles;
 
-    @Override
+    /** {@inheritDoc} */
     public void setActivatedFeatureToggles( List<AvailableFeatureToggles> featuresToBeActivated )
     {
         if ( featuresToBeActivated == null )
@@ -58,7 +58,6 @@ public class DefaultFeatureToggles
     }
 
     /** {@inheritDoc} */
-    @Override
     public boolean isToggleActive( AvailableFeatureToggles feature )
     {
         if ( activatedFeatureToggles != null )
@@ -68,7 +67,6 @@ public class DefaultFeatureToggles
         return false;
     }
 
-    @Override
     public List<AvailableFeatureToggles> getActiveFeatureToggles()
     {
         if ( activatedFeatureToggles == null )

@@ -31,8 +31,9 @@ public interface FeatureToggles
 {
 
     /**
-     * @since 3.4.0
      * @return The list of features which will be activated.
+     * @see AvailableFeatureToggles
+     * @since 3.4.0
      */
     void setActivatedFeatureToggles( List<AvailableFeatureToggles> activatedFeatures );
 
@@ -49,12 +50,14 @@ public interface FeatureToggles
      * @param feature The feature toggle to check for if it is activated or not.
      * @return <code>true</code> in case of feature has been activated via command line.
      *         <code>--activate-features MNG10000</code>, <code>false</code> otherwise.
+     * @see AvailableFeatureToggles
      * @since 3.4.0
      */
     boolean isToggleActive( AvailableFeatureToggles feature );
 
     /**
      * @return The list of feature toggles which have been activated.
+     * @see AvailableFeatureToggles
      * @since 3.4.0
      */
     List<AvailableFeatureToggles> getActiveFeatureToggles();
