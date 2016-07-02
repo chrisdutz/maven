@@ -194,7 +194,7 @@ public class MavenCli
     private ProfileSelector profileSelector;
     
     @Requirement
-    private FeatureToggles selectedFeatures;
+    private FeatureToggles featureToggles;
 
     public MavenCli()
     {
@@ -458,34 +458,44 @@ public class MavenCli
 
         if ( cliRequest.commandLine.hasOption( CLIManager.LIST_FEATURES ) )
         {
-            AvailableFeatureToggles[] availableFeatures = AvailableFeatureToggles.values();
+            AvailableFeatureToggles[] availableFeatures = AvailableFeatureToggles.getAvailableFeatureToggles();
 
-            System.out.println( "" );
-            System.out.println( "Currently existing feature toggles which you can enable:" );
-            System.out.println( "" );
-            System.out.println( "Issue     Option   Description" );
-            System.out.println( "--------- -------- ----------------------------------------------------" );
-            for ( AvailableFeatureToggles feature : availableFeatures )
+            if ( availableFeatures.length > 0 )
             {
-                String wrappedString = WordUtils.wrap( feature.getDescription(), 60 );
-                List<String> splitToList = Splitter.on( System.lineSeparator() ).splitToList( wrappedString );
-                for ( int i = 0; i < splitToList.size(); i++ )
+                System.out.println( "" );
+                System.out.println( "Currently existing feature toggles which you can enable:" );
+                System.out.println( "" );
+                System.out.println( "Issue     Option   Description" );
+                System.out.println( "--------- -------- ----------------------------------------------------" );
+                for ( AvailableFeatureToggles feature : availableFeatures )
                 {
-                    if ( i == 0 )
+                    String wrappedString = WordUtils.wrap( feature.getDescription(), 60 );
+                    List<String> splitToList = Splitter.on( System.lineSeparator() ).splitToList( wrappedString );
+                    for ( int i = 0; i < splitToList.size(); i++ )
                     {
-                        System.out.print( String.format( "%-9s %-8s", feature.getIssue(), feature.name() ) + " " );
+                        if ( i == 0 )
+                        {
+                            System.out.print( String.format( "%-9s %-8s", feature.getIssue(), feature.name() ) + " " );
+                        }
+                        else
+                        {
+                            System.out.print( String.format( "%-9s %-8s", "", "" ) + " " );
+                        }
+                        System.out.println( splitToList.get( i ) );
                     }
-                    else
-                    {
-                        System.out.print( String.format( "%-9s %-8s", "", "" ) + " " );
-                    }
-                    System.out.println( splitToList.get( i ) );
                 }
-            }
 
-            System.out.println( "" );
-            System.out.println( "If you like to know more about a particular issue please visit: issues.apache.org/jira/browse/[ISSUE]" );
-            throw new ExitException( 0 );
+                System.out.println( "" );
+                System.out.println( "If you like to know more about a particular issue please visit: issues.apache.org/jira/browse/[ISSUE]" );
+                throw new ExitException( 0 );
+            } 
+            else 
+            {
+                System.out.println( "" );
+                System.out.println( "There are not feature toggles available." );
+                throw new ExitException( 0 );
+                
+            }
         }
     }
 
@@ -640,7 +650,7 @@ public class MavenCli
 
         //Explicitly startup lookup for the component, cause it's used during command line
         //parsing etc.
-        selectedFeatures = container.lookup( FeatureToggles.class );
+        featureToggles = container.lookup( FeatureToggles.class );
         
         eventSpyDispatcher = container.lookup( EventSpyDispatcher.class );
 
@@ -1673,7 +1683,7 @@ public class MavenCli
                 }
             }
 
-            selectedFeatures.setActivatedFeatureToggles( activatedFeatures );
+            featureToggles.setActivatedFeatureToggles( activatedFeatures );
         }
 
         return request;

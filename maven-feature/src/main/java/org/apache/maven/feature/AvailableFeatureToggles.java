@@ -1,5 +1,8 @@
 package org.apache.maven.feature;
 
+import java.util.Arrays;
+import java.util.List;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -29,16 +32,22 @@ public enum AvailableFeatureToggles
 
     //FIXME: Only some examples given. Nothing which exists in reality.
 
-    MNG9991( "MNG-9991", "First Feature to be toggable via command line option. "
-        + "First Feature to be toggable via command line option." ),
-    MNG9992( "MNG-9992", "First Feature to be toggable via command line option. "
-        + "First Feature to be toggable via command line option. XX asdfa. asdf dsf." ),
-    MNG9993( "MNG-9993", "First Feature to be toggable via command line option. "
-        + "More text than you think." ),
-    MNG10000( "MNG-10000", "First Feature to be toggable via command line option. "
-        + "Here much more than you thing." );
+//    MNG9991( "MNG-9991", "First Feature to be toggable via command line option. "
+//        + "First Feature to be toggable via command line option." ),
+//    MNG9992( "MNG-9992", "First Feature to be toggable via command line option. "
+//        + "First Feature to be toggable via command line option. XX asdfa. asdf dsf." ),
+//    MNG9993( "MNG-9993", "First Feature to be toggable via command line option. "
+//        + "More text than you think." ),
+//    MNG10000( "MNG-10000", "First Feature to be toggable via command line option. "
+//        + "Here much more than you thing." ),
 
-//    UNKNONW ("UNKNOWN", "The unknown feature.");
+    /**
+     * This is an feature toggle which will never being used nor does it exist.
+     * This is only to mark the end of feature toggles. Also used for unit tests.
+     * 
+     * Keep it at the end.
+     */
+    UNKNOWN ("UNKNOWN", "The unknown feature.");
 
     private String issue;
 
@@ -50,6 +59,20 @@ public enum AvailableFeatureToggles
         this.description = description;
     }
 
+    public static AvailableFeatureToggles[] getAvailableFeatureToggles() {
+        List<AvailableFeatureToggles> asList = Arrays.asList( AvailableFeatureToggles.values());
+
+        AvailableFeatureToggles[] result = new AvailableFeatureToggles[asList.size() - 1];
+        
+        for ( int i = 0; i < asList.size() - 1; i++ )
+        {
+            if (asList.get( i ) != UNKNOWN) {
+                result[i] = asList.get( 0 );
+            }
+        }
+        return result;
+    }
+    
     public String getDescription()
     {
         return this.description;

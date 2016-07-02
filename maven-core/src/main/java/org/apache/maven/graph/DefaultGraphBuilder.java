@@ -80,9 +80,9 @@ public class DefaultGraphBuilder
             return dependencyGraph( session, session.getProjects(), false );
         }
         
-        if (selectedFeatures.isToggleActive( AvailableFeatureToggles.MNG10000 )) {
-            logger.info( " -> Features MNG 10000 is activated." );
-        }
+//        if (selectedFeatures.isToggleActive( AvailableFeatureToggles.MNG10000 )) {
+//            logger.info( " -> Features MNG 10000 is activated." );
+//        }
 
         List<MavenProject> projects = session.getProjects();
 
