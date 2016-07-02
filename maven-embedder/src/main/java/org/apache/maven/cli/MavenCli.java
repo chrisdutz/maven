@@ -463,20 +463,23 @@ public class MavenCli
             System.out.println( "" );
             System.out.println( "Currently existing feature toggles which you can enable:" );
             System.out.println( "" );
-            System.out.println( "Issue     Option  Description" );
-            System.out.println( "--------- ------- ----------------------------------------------------" );
+            System.out.println( "Issue     Option   Description" );
+            System.out.println( "--------- -------- ----------------------------------------------------" );
             for ( AvailableFeatures feature : availableFeatures )
             {
-                String wrappedString = WordUtils.wrap( feature.getDescription(), 60);
+                String wrappedString = WordUtils.wrap( feature.getDescription(), 60 );
                 List<String> splitToList = Splitter.on( System.lineSeparator() ).splitToList( wrappedString );
                 for ( int i = 0; i < splitToList.size(); i++ )
                 {
-                    if (i == 0) {
-                       System.out.print (String.format( "%-9s %-8s", feature.getIssue(), feature.name()) + " "); 
-                    } else {
-                        System.out.print (String.format( "%-9s %-8s", "", "" ) + " ");
+                    if ( i == 0 )
+                    {
+                        System.out.print( String.format( "%-9s %-8s", feature.getIssue(), feature.name() ) + " " );
                     }
-                    System.out.println( splitToList.get( i ));
+                    else
+                    {
+                        System.out.print( String.format( "%-9s %-8s", "", "" ) + " " );
+                    }
+                    System.out.println( splitToList.get( i ) );
                 }
             }
 
