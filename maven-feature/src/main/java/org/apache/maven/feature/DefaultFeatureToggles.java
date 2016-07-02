@@ -27,48 +27,57 @@ import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;
 
-@Component( instantiationStrategy = "singleton", role = SelectedFeatures.class )
-public class DefaultSelectedFeatures
-    implements SelectedFeatures
+/**
+ * This implements features toggles which can activated or 
+ * asked if a particular feature toggle is active or not.
+ * 
+ * @author Karl Heinz Marbaise <a href="mailto:khmarbaise@apache.org">khmarbaise@apache.org</a>
+ *
+ * @since 3.4.0
+ */
+@Component( instantiationStrategy = "singleton", role = FeatureToggles.class )
+public class DefaultFeatureToggles
+    implements FeatureToggles
 {
     @Requirement
     private Logger logger;
 
-    private List<AvailableFeatures> activatedFeatures;
+    private List<AvailableFeatureToggles> activatedFeatureToggles;
 
     @Override
-    public void setActivatedFeatures( List<AvailableFeatures> featuresToBeActivated )
+    public void setActivatedFeatureToggles( List<AvailableFeatureToggles> featuresToBeActivated )
     {
         if ( featuresToBeActivated == null )
         {
-            this.activatedFeatures = new ArrayList<>();
+            this.activatedFeatureToggles = new ArrayList<>();
         }
         else
         {
-            this.activatedFeatures = featuresToBeActivated;
+            this.activatedFeatureToggles = featuresToBeActivated;
         }
     }
 
+    /** {@inheritDoc} */
     @Override
-    public boolean isFeatureActive( AvailableFeatures feature )
+    public boolean isToggleActive( AvailableFeatureToggles feature )
     {
-        if ( activatedFeatures != null )
+        if ( activatedFeatureToggles != null )
         {
-            return activatedFeatures.contains( feature );
+            return activatedFeatureToggles.contains( feature );
         }
         return false;
     }
 
     @Override
-    public List<AvailableFeatures> getActiveFeatures()
+    public List<AvailableFeatureToggles> getActiveFeatureToggles()
     {
-        if ( activatedFeatures == null )
+        if ( activatedFeatureToggles == null )
         {
             return Collections.emptyList();
         }
         else
         {
-            return activatedFeatures;
+            return activatedFeatureToggles;
         }
     }
     

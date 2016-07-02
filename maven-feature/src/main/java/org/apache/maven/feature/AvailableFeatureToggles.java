@@ -24,7 +24,7 @@ package org.apache.maven.feature;
  *
  * @since 3.4.0
  */
-public enum AvailableFeatures
+public enum AvailableFeatureToggles
 {
 
     //FIXME: Only some examples given. Nothing which exists in reality.
@@ -44,7 +44,7 @@ public enum AvailableFeatures
 
     private String description;
 
-    private AvailableFeatures( String issue, String description )
+    private AvailableFeatureToggles( String issue, String description )
     {
         this.issue = issue;
         this.description = description;

@@ -22,35 +22,41 @@ package org.apache.maven.feature;
 import java.util.List;
 
 /**
- * This gives access to the feature storage which can be used during the 
- * run of Maven to access information about the activated features.
+ * This gives access to the feature toggles which can be used during the run of Maven.
  * 
  * @author Karl Heinz Marbaise <a href="mailto:khmarbaise@apache.org">khmarbaise@apache.org</a>
- *
  * @since 3.4.0
  */
-public interface SelectedFeatures
+public interface FeatureToggles
 {
 
     /**
      * @since 3.4.0
      * @return The list of features which will be activated.
      */
-    void setActivatedFeatures(List<AvailableFeatures> activatedFeatures);
+    void setActivatedFeatureToggles( List<AvailableFeatureToggles> activatedFeatures );
 
     /**
-     * @param feature The feature to check for if it is activated or not.
+     * Example code looks like this:
+     * <pre>
+     * <code>
+     *  if (selectedFeatures.isToggleActive( AvailableFeatureToggles.MNG10000 )) {
+     *      // Do what is needed for the particular feature
+     *  }
+     * </code>
+     * </pre>
+     * 
+     * @param feature The feature toggle to check for if it is activated or not.
      * @return <code>true</code> in case of feature has been activated via command line.
-     * <code>--activate-feature FEATURE</code> <code>false</code> otherwise.
+     *         <code>--activate-features MNG10000</code>, <code>false</code> otherwise.
      * @since 3.4.0
      */
-    boolean isFeatureActive(AvailableFeatures feature);
-    
+    boolean isToggleActive( AvailableFeatureToggles feature );
+
     /**
-     * @return The list of features which are activated.
+     * @return The list of feature toggles which have been activated.
      * @since 3.4.0
      */
-    List<AvailableFeatures> getActiveFeatures();
-    
+    List<AvailableFeatureToggles> getActiveFeatureToggles();
 
 }

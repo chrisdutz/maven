@@ -34,25 +34,25 @@ public class DefaultSelectedFeaturesTest
     @Test
     public void getActiveFeaturesShouldNotReturnNull()
     {
-        DefaultSelectedFeatures sf = new DefaultSelectedFeatures();
-        assertNotNull( sf.getActiveFeatures() );
-        assertEquals( sf.getActiveFeatures().size(), 0 );
+        DefaultFeatureToggles sf = new DefaultFeatureToggles();
+        assertNotNull( sf.getActiveFeatureToggles() );
+        assertEquals( sf.getActiveFeatureToggles().size(), 0 );
     }
 
     @Test
     public void isFeatureActiveShouldReturnFalse()
     {
-        DefaultSelectedFeatures sf = new DefaultSelectedFeatures();
-        assertFalse( sf.isFeatureActive( AvailableFeatures.MNG10000 ) );
+        DefaultFeatureToggles sf = new DefaultFeatureToggles();
+        assertFalse( sf.isToggleActive( AvailableFeatureToggles.MNG10000 ) );
     }
 
     @Test
     public void isFeatureActiveShouldReturnFalseIfNotTheCorrectFeatureIsActivated()
     {
-        DefaultSelectedFeatures sf = new DefaultSelectedFeatures();
+        DefaultFeatureToggles sf = new DefaultFeatureToggles();
 
-        sf.setActivatedFeatures( Arrays.asList( AvailableFeatures.MNG9991, AvailableFeatures.MNG9992 ) );
-        assertFalse( sf.isFeatureActive( AvailableFeatures.MNG10000 ) );
-        assertTrue( sf.isFeatureActive( AvailableFeatures.MNG9991 ) );
+        sf.setActivatedFeatureToggles( Arrays.asList( AvailableFeatureToggles.MNG9991, AvailableFeatureToggles.MNG9992 ) );
+        assertFalse( sf.isToggleActive( AvailableFeatureToggles.MNG10000 ) );
+        assertTrue( sf.isToggleActive( AvailableFeatureToggles.MNG9991 ) );
     }
 }

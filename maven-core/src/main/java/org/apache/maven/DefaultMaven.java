@@ -38,8 +38,8 @@ import org.apache.maven.execution.MavenExecutionRequest;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.execution.ProjectDependencyGraph;
-import org.apache.maven.feature.AvailableFeatures;
-import org.apache.maven.feature.SelectedFeatures;
+import org.apache.maven.feature.AvailableFeatureToggles;
+import org.apache.maven.feature.FeatureToggles;
 import org.apache.maven.graph.GraphBuilder;
 import org.apache.maven.internal.aether.DefaultRepositorySystemSessionFactory;
 import org.apache.maven.lifecycle.internal.ExecutionEventCatapult;
@@ -96,7 +96,7 @@ public class DefaultMaven
     private DefaultRepositorySystemSessionFactory repositorySessionFactory;
     
     @Requirement
-    private SelectedFeatures selectedFeatures;
+    private FeatureToggles selectedFeatures;
 
     @Requirement( hint = GraphBuilder.HINT )
     private GraphBuilder graphBuilder;
@@ -106,11 +106,11 @@ public class DefaultMaven
     {
         MavenExecutionResult result;
 
-        List<AvailableFeatures> activatedFeatures = selectedFeatures.getActiveFeatures();
+        List<AvailableFeatureToggles> activatedFeatures = selectedFeatures.getActiveFeatureToggles();
         if ( !activatedFeatures.isEmpty() )
         {
             logger.debug( "-------------------------------------------" );
-            for ( AvailableFeatures feature : activatedFeatures )
+            for ( AvailableFeatureToggles feature : activatedFeatures )
             {
                 logger.debug( "Feature: " + feature.name() + " activated.");
             }

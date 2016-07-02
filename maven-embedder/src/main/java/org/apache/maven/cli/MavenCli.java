@@ -80,8 +80,8 @@ import org.apache.maven.execution.MavenExecutionRequestPopulator;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.apache.maven.extension.internal.CoreExports;
 import org.apache.maven.extension.internal.CoreExtensionEntry;
-import org.apache.maven.feature.AvailableFeatures;
-import org.apache.maven.feature.SelectedFeatures;
+import org.apache.maven.feature.AvailableFeatureToggles;
+import org.apache.maven.feature.FeatureToggles;
 import org.apache.maven.lifecycle.LifecycleExecutionException;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.Repository;
@@ -194,7 +194,7 @@ public class MavenCli
     private ProfileSelector profileSelector;
     
     @Requirement
-    private SelectedFeatures selectedFeatures;
+    private FeatureToggles selectedFeatures;
 
     public MavenCli()
     {
@@ -458,14 +458,14 @@ public class MavenCli
 
         if ( cliRequest.commandLine.hasOption( CLIManager.LIST_FEATURES ) )
         {
-            AvailableFeatures[] availableFeatures = AvailableFeatures.values();
+            AvailableFeatureToggles[] availableFeatures = AvailableFeatureToggles.values();
 
             System.out.println( "" );
             System.out.println( "Currently existing feature toggles which you can enable:" );
             System.out.println( "" );
             System.out.println( "Issue     Option   Description" );
             System.out.println( "--------- -------- ----------------------------------------------------" );
-            for ( AvailableFeatures feature : availableFeatures )
+            for ( AvailableFeatureToggles feature : availableFeatures )
             {
                 String wrappedString = WordUtils.wrap( feature.getDescription(), 60 );
                 List<String> splitToList = Splitter.on( System.lineSeparator() ).splitToList( wrappedString );
@@ -640,7 +640,7 @@ public class MavenCli
 
         //Explicitly startup lookup for the component, cause it's used during command line
         //parsing etc.
-        selectedFeatures = container.lookup( SelectedFeatures.class );
+        selectedFeatures = container.lookup( FeatureToggles.class );
         
         eventSpyDispatcher = container.lookup( EventSpyDispatcher.class );
 
@@ -1651,7 +1651,7 @@ public class MavenCli
         {
             String activateFeaturesOptionValue = commandLine.getOptionValue( CLIManager.ACTIVATE_FEATURES );
 
-            List<AvailableFeatures> activatedFeatures = new ArrayList<>();
+            List<AvailableFeatureToggles> activatedFeatures = new ArrayList<>();
 
             if ( activateFeaturesOptionValue != null )
             {
@@ -1663,7 +1663,7 @@ public class MavenCli
 
                     try
                     {
-                        AvailableFeatures resultingFeature = AvailableFeatures.valueOf( featureToken.toUpperCase() );
+                        AvailableFeatureToggles resultingFeature = AvailableFeatureToggles.valueOf( featureToken.toUpperCase() );
                         activatedFeatures.add( resultingFeature );
                     }
                     catch ( java.lang.IllegalArgumentException e )
@@ -1673,7 +1673,7 @@ public class MavenCli
                 }
             }
 
-            selectedFeatures.setActivatedFeatures( activatedFeatures );
+            selectedFeatures.setActivatedFeatureToggles( activatedFeatures );
         }
 
         return request;
