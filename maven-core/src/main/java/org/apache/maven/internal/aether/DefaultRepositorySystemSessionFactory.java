@@ -24,6 +24,7 @@ import org.apache.maven.artifact.handler.manager.ArtifactHandlerManager;
 import org.apache.maven.bridge.MavenRepositorySystem;
 import org.apache.maven.eventspy.internal.EventSpyDispatcher;
 import org.apache.maven.execution.MavenExecutionRequest;
+import org.apache.maven.repository.internal.LanguageSupport;
 import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
 import org.apache.maven.settings.Mirror;
 import org.apache.maven.settings.Proxy;
@@ -56,6 +57,7 @@ import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -93,9 +95,12 @@ public class DefaultRepositorySystemSessionFactory
     @Inject
     MavenRepositorySystem mavenRepositorySystem;
 
+    @Inject
+    private List<LanguageSupport> languageSupports;
+
     public DefaultRepositorySystemSession newRepositorySession( MavenExecutionRequest request )
     {
-        DefaultRepositorySystemSession session = MavenRepositorySystemUtils.newSession();
+        DefaultRepositorySystemSession session = MavenRepositorySystemUtils.newSession( languageSupports );
 
         session.setCache( request.getRepositoryCache() );
 
